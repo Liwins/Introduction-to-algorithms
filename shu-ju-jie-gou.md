@@ -1,14 +1,14 @@
 这部分主要描述用于实现动态集合的几种数据结构；比如基本结构：栈，队列，链表和有根树。散列表，二叉搜索树，红黑树
 
-\# 第十章基本结构
+# 第十章基本结构
 
-\#\# 栈和队列
+## 栈和队列
 
 栈和队列都是动态集合，且在上面进行DELETE操作所移除的元素都是预先设定的。
 
 这里我们用数组来作为栈的存储方式。
 
-!\[stack\]\(http://image/stack.png\)
+!\[stack\]\([http://image/stack.png\](http://image/stack.png\)\)
 
 如果栈中不包含任何元素即S.top=0，那么即为栈空，如果试图对一个空栈执行弹出操作，则称为栈下溢。如果S.top超过了n则称为栈上溢。
 
@@ -16,57 +16,67 @@
 
 StackEmpty\(s\)
 
-    if s.top==0
+```
+if s.top==0
 
-        return true
+    return true
 
-    else return false
+else return false
+```
 
 Push\(S,x\)
 
-    s.top=s.top+1
+```
+s.top=s.top+1
 
-    s.top=x
+s.top=x
+```
 
 Pop\(s\)
 
-    if Stackempty\(s\)
+```
+if Stackempty\(s\)
 
-        error "underflow"
+    error "underflow"
 
-    else s.top=s.top-1
+else s.top=s.top-1
 
-        return s\[s.top+1\]
+    return s\[s.top+1\]
+```
 
 \`\`\`
 
 对于队列的数组表示，稍微有点差别，因为其实现过程中是循环操作的，操作有两种（入队和出队）。具体如图
 
-!\[queue\]\(http://image/Queue.png\)
+!\[queue\]\([http://image/Queue.png\](http://image/Queue.png\)\)
 
 \`\`\`
 
 EnQueue\(Q,x\)
 
-    Q\[Q.tail\]=x
+```
+Q\[Q.tail\]=x
 
-    if Q.tail==Q.length
+if Q.tail==Q.length
 
-        Q.tail=1
+    Q.tail=1
 
-    else Q.tail=Q.tail+1
+else Q.tail=Q.tail+1
+```
 
 DeQueue\(Q\)
 
-    x=Q\[Q.head\]
+```
+x=Q\[Q.head\]
 
-    if Q.head=Q.length
+if Q.head=Q.length
 
-        Q.head=1
+    Q.head=1
 
-    else Q.head=Q.head+1
+else Q.head=Q.head+1
 
-    return x
+return x
+```
 
 \`\`\`
 
@@ -76,51 +86,57 @@ DeQueue\(Q\)
 
 链表有多种，如双向链表，单链表，循环链表等
 
-!\[doubleLinkedList\]\(http://image/doubleLinkedList.png\)
+!\[doubleLinkedList\]\([http://image/doubleLinkedList.png\](http://image/doubleLinkedList.png\)\)
 
 \`\`\`
 
 ListSearch\(L,k\)
 
-    x=L.head
+```
+x=L.head
 
-    while x!=null and x.key!=k
+while x!=null and x.key!=k
 
-        x=x.next
+    x=x.next
 
-    if x!=L.tail
+if x!=L.tail
 
-        return x
+    return x
 
-    else return null
+else return null
+```
 
 //采用头插法
 
 ListInsert\(L,x\)
 
-    x.next=L.head
+```
+x.next=L.head
 
-    if L.head!=null
+if L.head!=null
 
-        L.head.prev=x
+    L.head.prev=x
 
-    L.head=x
+L.head=x
 
-    x.prev=null
+x.prev=null
+```
 
 //表的删除
 
 ListDelete\(L,x\)
 
-    if x.prev!=null
+```
+if x.prev!=null
 
-        x.prev.next=x.next
+    x.prev.next=x.next
 
-    else L.head=x.next
+else L.head=x.next
 
-    if x.next!=null
+if x.next!=null
 
-        x.next.prev=x.prev
+    x.next.prev=x.prev
+```
 
 \`\`\`
 
@@ -132,15 +148,17 @@ ListDelete\(L,x\)
 
 ListDelete\(L,x\)
 
-    x.prev.next=x.next
+```
+x.prev.next=x.next
 
-    x.next.prev=x.prev
+x.next.prev=x.prev
+```
 
 \`\`\`
 
 哨兵sentinel是一个哑对象，其作用是简化边界条件的处理。例如在链表L中设置一个对象L.nil,该对象和其他节点对象一样具有各种属性。对于链表代码中出现的每一处对NIL的引用，都代之以哨兵L.nil的引用。具体如图
 
-!\[listwithSentinel\]\(http://image/listwithSentinel.png\)
+!\[listwithSentinel\]\([http://image/listwithSentinel.png\](http://image/listwithSentinel.png\)\)
 
 虽然引入哨兵不能降低算法的复杂度，但是可以简化代码，如果使用的链表实例化不多，并且链表容器内节点也比较多。那么可以利用哨兵来实现链表
 
@@ -148,23 +166,27 @@ ListDelete\(L,x\)
 
 ListSearch\(L,k\)
 
-    x=L.nil.next
+```
+x=L.nil.next
 
-    while x!=L.nil and x.key!=k
+while x!=L.nil and x.key!=k
 
-        x=x.next
+    x=x.next
 
-    return x
+return x
+```
 
 ListInsert\(L,x\)
 
-    x.next=L.nil.next
+```
+x.next=L.nil.next
 
-    x.prev=L.nil
+x.prev=L.nil
 
-    L.nil.next.prev=x
+L.nil.next.prev=x
 
-    L.nil.next=x
+L.nil.next=x
+```
 
 \`\`\`
 
@@ -176,19 +198,19 @@ ListInsert\(L,x\)
 
 二叉树T中如何利用属性P,left和right存放指向父节点，左孩子和右孩子的指针。具体如图，属性T.root指向整棵树T的根结点。如果T.root=null则该树为空。
 
-!\[bi-Tree\]\(http://image/bi-Tree.png\)
+!\[bi-Tree\]\([http://image/bi-Tree.png\](http://image/bi-Tree.png\)\)
 
 \*\*分支无限制的有根树\*\*
 
 二叉树的表示方法中可以推广的到多叉树，这种结构就不可以用多个指针表示在单个节点中了。这时候可以通过孩子兄弟表示法达到这种目标。实现分支无限制的有根树。
 
-!\[child-sblingtree\]\(http://image/child-sblingtree.png\)
+!\[child-sblingtree\]\([http://image/child-sblingtree.png\](http://image/child-sblingtree.png\)\)
 
 \*\*树的其他表示方法\*\*
 
 其实还有一些，比如完全二叉树的堆表示（第6章）和只有父节点指针的表示方法（21章）
 
-\# 第十一章 散列表
+# \# 第十一章 散列表
 
 许多应用都需要一种动态集合结构，他至少要支持insert ,search和delete字典操作。散列表（hash table）是实现字典操作的一种有效数据结构。尽管最坏情况下，散列表中查找一个元素的时间与链表中查找的时间相同。达到了O\(n\)。然而在实际应用中，散列查找的性能是极好的。在一些合理的假设下，在散列表中查找一个元素的平均时间是O\(1\)
 
@@ -196,11 +218,11 @@ ListInsert\(L,x\)
 
 当实际存储的关键字数目比全部的可能关键字总数要小时，采用散列表就成为直接数组寻址的有效替代，因为散列表使用一个长度与实际存储的关键字数成比例的数组来存储。在散列表中，不是直接把关键字作为数组的下表，而是根据关键字计算出相应的下标。
 
-\#\# 直接寻址表
+## \#\# 直接寻址表
 
 为表示动态集合，我们用一个数组，或称为直接寻址表，记为T\[0,...,m-1\].其中每个位置，或称为槽slot.对应全域U中的一个关键字。槽k指向集合中一个关键字k的元素。如果该集合中没有关键字为k的元素，则T\[k\]=Null，具体如图
 
-!\[xunzhi\]\(http://image/xunzhi.png\)
+!\[xunzhi\]\([http://image/xunzhi.png\](http://image/xunzhi.png\)\)
 
 几个字典的操作如下
 
@@ -208,27 +230,33 @@ ListInsert\(L,x\)
 
 Direct-Address-Search\(T,k\)
 
-    return T\[k\]
+```
+return T\[k\]
+```
 
 Direct-address-insert\(T,x\)
 
-    T\[x.key\]=x
+```
+T\[x.key\]=x
+```
 
 Direct-address-delete\(T,x\)
 
-    T\[x.key\]=Null
+```
+T\[x.key\]=Null
+```
 
 \`\`\`
 
 对于某些应用，直接寻址表本身就可以动态存放动态集合中的元素，也就是说，并不是每个元素的关键字及其卫星数据都放在直接寻址表外部的一个对象，再由表中某个槽的指针指向该对象，而是直接把该对象放在表的槽中，从而节省了空间。我们使用对象内的一个特殊关键字来表明该槽是空的。而且，通常比比存储该对象的关键字属性，因为如果知道一个对i向在表中的下表，就可以得到他的关键字了
 
-\#\# 散列表
+## \#\# 散列表
 
 直接寻址表的缺点是非常明显的；如果全域U很大，则在一台标准的计算机可用内存容量中，要存储大小为U的一张表也许不太实际，甚至不可能。还有实际存储的关键字集合K相对U来说可能很小，使得分配给T的大部分空间都将浪费掉。
 
 在直接寻址的方式下，具有关键字k的元素被存放在槽k中，在散列方式下，该元素存放在槽h\(k\)中，即利用散列函数h，由关键字k计算出槽的位置。这里,函数h将关键字的全域U映射到散列表T\[0,,,m-1\]的槽位上，这里的散列表的大小m一般要比\|U\|小得多。我们可以说一个具有关键字k的元素被散列到槽h\(k\)上，也可以说h\(k\)是关键字k的散列值。散列函数缩小了数组下标的范围，即减小了数组的大小，使其由\|U\|减小为m.
 
-!\[hash\]\(http://images/hash.png\)
+!\[hash\]\([http://images/hash.png\](http://images/hash.png\)\)
 
 这里存在一个问题；两个关键字可能映射到同一个槽中。我们冲这种情形为冲突。
 
@@ -238,21 +266,27 @@ Direct-address-delete\(T,x\)
 
 chained-hash-insert\(T,x\)
 
-    insert x at the head of list T\[h\(x.key\)\]
+```
+insert x at the head of list T\[h\(x.key\)\]
+```
 
 chainedHashSearch\(T,k\)
 
-    return T\[h\(k\)\]
+```
+return T\[h\(k\)\]
+```
 
 chainedHashDelete\(T,x\)
 
-    T\[h\(x.key\)\]=nil
+```
+T\[h\(x.key\)\]=nil
+```
 
 \`\`\`
 
 \*\*链接法\*\*
 
-!\[chainedHash\]\(http://image/chainedHash.png\)
+!\[chainedHash\]\([http://image/chainedHash.png\](http://image/chainedHash.png\)\)
 
 性能问题：
 
@@ -260,7 +294,7 @@ chainedHashDelete\(T,x\)
 
 因此散列的平均性能依赖于选取的散列函数h，将所有的关键字集合分布在m个槽位上的均匀程度。
 
-\#\# 散列函数
+## \#\# 散列函数
 
 对于散列函数这里有三种常见的其中两种（用除法进行散列和用乘法进行散列）本质上属于启发式方法，而第三种方法（全域散列则利用了随机技术来提供可证明的良好性能）。
 
@@ -280,13 +314,13 @@ chainedHashDelete\(T,x\)
 
 如字符串pt，ascii中p=112,t=116.那么pt=\(112\\*128\)+116=14452。
 
-\#\#\# 除法散列法
+### \#\#\# 除法散列法
 
 一般用一个不太接近2的整数幂的素数，常常用来作为m的较好的选择。例如我们大约要存放2000个字符串，其中每隔字符有8位，如果我们不介意一次不成功的查找需要平均检查3个元素，这样分配散列表的大小为m的=701.选择701这个数的原因是，它是一个接近2000/3但又不接近2的任何次幂的素数。把这个关键字k视为一个整数，则散列函数如下：
 
 h\(k\)=k mod 701
 
-\#\#\# 乘法散列法
+### \#\#\# 乘法散列法
 
 构造散列函数的乘法散列包含两步骤。
 
@@ -298,23 +332,72 @@ h\(k\)=\[m\(kA mod 1\)\]
 
 一般 A的取值为\(根号5-1\)/2=0.618033
 
-!\[chengfaHash\]\(http://image/chengfaHash.png\)
+!\[chengfaHash\]\([http://image/chengfaHash.png\](http://image/chengfaHash.png\)\)
 
 例如：
 
-假设k=123456,p=15,m=2^14=16284,且w=32依据A的取值规则A取值2654435769/2^32,那么，k\\*s=327 706 022 297 664=\(76300\\*2^32\)+17612864,从而r1=76300和r0=17612864.ro的14个高位产生了散列值h\(k\)=67
+假设k=123456,p=15,m=2^14=16284,且w=32依据A的取值规则A取值2654435769/2^32,那么，k\_s=327 706 022 297 664=\(76300\_2^32\)+17612864,从而r1=76300和r0=17612864.ro的14个高位产生了散列值h\(k\)=67
 
 全域散列（略）
 
-\#\# 哈希冲突-开放寻址法
+## \#\# 哈希冲突-开放寻址法
 
 在开放寻址法中，所有的元素都存放在散列表里，也就是说，每个表项或包含动态集合的一个元素，或包含NULL,当查找某个元素时，要系统地检查所有的表项，直到找到所需的元素，或者最终查明该元素不在表中。不像链接法，这里既没有链表，也没有元素存放在散列表外。因此开放寻址法中，散列表可能会被填满，以至于不能插入任何元素。该方法导致的一个结果便是装载因子绝对不会超过1.
 
+为了使用开放寻址法插入一个元素，需要连续检查散列表，或称为探查，直到找到一个空槽来放置待插入的关键字为止。检查的顺序不一定是0，1，。。。，m-1.（这种顺序下的查找时间为On,而是要依赖于待插入的关键字。为了确定要探测哪些槽，我们将散列函数加以扩充）构造成一种映射u\(0,...,m-1\)-&gt;{0,1,...,m-1}。h\(k,0\).
 
+构造哈希表
 
+```py
+HashInsert(T,k)
+    i=0
+    repeat
+        j=h(k,i)
+        if T[j]==Null
+            T[j]=k
+            return j
+        else i+=1
+    untill i==m
+    error "hash table overflow"
+```
 
+查找元素也采用相同的方式，当碰到一个空槽还没找到元素，那么就是元素不存在
 
+```go
+HashSearch(T,k)
+    i=0
+    repeat 
+        j=h(k,i)
+        if　T[j]==k
+            return j
+        i=i+1
+    until T[j]==null or i==m
+    return null
+```
 
+但是这样的方式也有缺陷，那就是当删除一个元素时，不能直接将该值直接删除，因为会引起查找时的提前结束。因此常采用的方式有两种１设deleted标识２采用链接法来解决冲突
+
+下面讨论关于开放寻址中的探测序列的技术，主要三种
+
+1. 线性探查
+2. 二次探查
+3. 双重探查
+
+线性探查
+
+其实线性探查是给定的散列函数基础上，进行下一个位置的探测。
+
+当然也存在问题，那就是元素的群集（连续占用的槽增多降低了元素的查找效率）
+
+![](/assets/17847GW[%`$LT9SH4P59W63.png)二次探查
+
+二次探查采用如下形式进行散列
+
+![](/assets/17847GW[%`$LT9SH4P59W63.png)ｈ\`是一个辅助散列函数，c1和c2为正的辅助常数，ｉ=0,1,...,m-1,这种方式也会引起一定的群集问题，称为二次群集。
+
+双重探查
+
+双重散列是目前开放寻址法中最好的方式之一。因为它所产生的排列具有随机选择排列的许多特性。
 
 
 
