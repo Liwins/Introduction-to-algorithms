@@ -8,7 +8,7 @@
 
 这里我们用数组来作为栈的存储方式。
 
-!\[stack\]\([http://image/stack.png\](http://image/stack.png\)\)
+!\[stack\]\([http://image/stack.png\](http://image/stack.png%29\)
 
 如果栈中不包含任何元素即S.top=0，那么即为栈空，如果试图对一个空栈执行弹出操作，则称为栈下溢。如果S.top超过了n则称为栈上溢。
 
@@ -48,7 +48,7 @@ else s.top=s.top-1
 
 对于队列的数组表示，稍微有点差别，因为其实现过程中是循环操作的，操作有两种（入队和出队）。具体如图
 
-!\[queue\]\([http://image/Queue.png\](http://image/Queue.png\)\)
+!\[queue\]\([http://image/Queue.png\](http://image/Queue.png%29\)
 
 \`\`\`
 
@@ -86,7 +86,7 @@ return x
 
 链表有多种，如双向链表，单链表，循环链表等
 
-!\[doubleLinkedList\]\([http://image/doubleLinkedList.png\](http://image/doubleLinkedList.png\)\)
+!\[doubleLinkedList\]\([http://image/doubleLinkedList.png\](http://image/doubleLinkedList.png%29\)
 
 \`\`\`
 
@@ -158,7 +158,7 @@ x.next.prev=x.prev
 
 哨兵sentinel是一个哑对象，其作用是简化边界条件的处理。例如在链表L中设置一个对象L.nil,该对象和其他节点对象一样具有各种属性。对于链表代码中出现的每一处对NIL的引用，都代之以哨兵L.nil的引用。具体如图
 
-!\[listwithSentinel\]\([http://image/listwithSentinel.png\](http://image/listwithSentinel.png\)\)
+!\[listwithSentinel\]\([http://image/listwithSentinel.png\](http://image/listwithSentinel.png%29\)
 
 虽然引入哨兵不能降低算法的复杂度，但是可以简化代码，如果使用的链表实例化不多，并且链表容器内节点也比较多。那么可以利用哨兵来实现链表
 
@@ -198,13 +198,13 @@ L.nil.next=x
 
 二叉树T中如何利用属性P,left和right存放指向父节点，左孩子和右孩子的指针。具体如图，属性T.root指向整棵树T的根结点。如果T.root=null则该树为空。
 
-!\[bi-Tree\]\([http://image/bi-Tree.png\](http://image/bi-Tree.png\)\)
+!\[bi-Tree\]\([http://image/bi-Tree.png\](http://image/bi-Tree.png%29\)
 
 \*\*分支无限制的有根树\*\*
 
 二叉树的表示方法中可以推广的到多叉树，这种结构就不可以用多个指针表示在单个节点中了。这时候可以通过孩子兄弟表示法达到这种目标。实现分支无限制的有根树。
 
-!\[child-sblingtree\]\([http://image/child-sblingtree.png\](http://image/child-sblingtree.png\)\)
+!\[child-sblingtree\]\([http://image/child-sblingtree.png\](http://image/child-sblingtree.png%29\)
 
 \*\*树的其他表示方法\*\*
 
@@ -222,7 +222,7 @@ L.nil.next=x
 
 为表示动态集合，我们用一个数组，或称为直接寻址表，记为T\[0,...,m-1\].其中每个位置，或称为槽slot.对应全域U中的一个关键字。槽k指向集合中一个关键字k的元素。如果该集合中没有关键字为k的元素，则T\[k\]=Null，具体如图
 
-!\[xunzhi\]\([http://image/xunzhi.png\](http://image/xunzhi.png\)\)
+!\[xunzhi\]\([http://image/xunzhi.png\](http://image/xunzhi.png%29\)
 
 几个字典的操作如下
 
@@ -256,7 +256,7 @@ T\[x.key\]=Null
 
 在直接寻址的方式下，具有关键字k的元素被存放在槽k中，在散列方式下，该元素存放在槽h\(k\)中，即利用散列函数h，由关键字k计算出槽的位置。这里,函数h将关键字的全域U映射到散列表T\[0,,,m-1\]的槽位上，这里的散列表的大小m一般要比\|U\|小得多。我们可以说一个具有关键字k的元素被散列到槽h\(k\)上，也可以说h\(k\)是关键字k的散列值。散列函数缩小了数组下标的范围，即减小了数组的大小，使其由\|U\|减小为m.
 
-!\[hash\]\([http://images/hash.png\](http://images/hash.png\)\)
+!\[hash\]\([http://images/hash.png\](http://images/hash.png%29\)
 
 这里存在一个问题；两个关键字可能映射到同一个槽中。我们冲这种情形为冲突。
 
@@ -286,7 +286,7 @@ T\[h\(x.key\)\]=nil
 
 \*\*链接法\*\*
 
-!\[chainedHash\]\([http://image/chainedHash.png\](http://image/chainedHash.png\)\)
+!\[chainedHash\]\([http://image/chainedHash.png\](http://image/chainedHash.png%29\)
 
 性能问题：
 
@@ -332,7 +332,7 @@ h\(k\)=\[m\(kA mod 1\)\]
 
 一般 A的取值为\(根号5-1\)/2=0.618033
 
-!\[chengfaHash\]\([http://image/chengfaHash.png\](http://image/chengfaHash.png\)\)
+!\[chengfaHash\]\([http://image/chengfaHash.png\](http://image/chengfaHash.png%29\)
 
 例如：
 
@@ -398,6 +398,82 @@ HashSearch(T,k)
 双重探查
 
 双重散列是目前开放寻址法中最好的方式之一。因为它所产生的排列具有随机选择排列的许多特性。
+
+![](/assets/}~R{S%29C4G%M1{GNC5MG2_NV.png)对于上面的辅助散列函数h1和h2，我们可以采取以下方式
+
+h1\(k\)=k mod m   h2\(k\)=1+\(k mod m\`\)
+
+这里m\`略小于ｍ
+
+![](/assets/Z%28_4`W0CC@2Y@S4AAP[E_{F.png)
+
+## 完全散列
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
